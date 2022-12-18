@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://zaman.onenote" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://zaman.onenote" xmlns:intf="http://zaman.onenote" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://zaman.onenote" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="addFile">
+    <complexType>
+     <sequence>
+      <element name="user_id" type="xsd:int"/>
+      <element name="noteName" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="addFileResponse">
+    <complexType>
+     <sequence>
+      <element name="addFileReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="deleteNote">
+    <complexType>
+     <sequence>
+      <element name="user_id" type="xsd:int"/>
+      <element name="noteName" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="deleteNoteResponse">
+    <complexType>
+     <sequence>
+      <element name="deleteNoteReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="addFileRequest">
+
+      <wsdl:part element="impl:addFile" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteNoteResponse">
+
+      <wsdl:part element="impl:deleteNoteResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteNoteRequest">
+
+      <wsdl:part element="impl:deleteNote" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="addFileResponse">
+
+      <wsdl:part element="impl:addFileResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="FileManagement">
+
+      <wsdl:operation name="addFile">
+
+         <wsdl:input message="impl:addFileRequest" name="addFileRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:addFileResponse" name="addFileResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteNote">
+
+         <wsdl:input message="impl:deleteNoteRequest" name="deleteNoteRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:deleteNoteResponse" name="deleteNoteResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="FileManagementSoapBinding" type="impl:FileManagement">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="addFile">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="addFileRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="addFileResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteNote">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="deleteNoteRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="deleteNoteResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="FileManagementService">
+
+      <wsdl:port binding="impl:FileManagementSoapBinding" name="FileManagement">
+
+         <wsdlsoap:address location="http://localhost:8080/OneNote-Web/services/FileManagement"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

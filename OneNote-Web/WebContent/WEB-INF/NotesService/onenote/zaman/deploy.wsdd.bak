@@ -1,0 +1,36 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from NotesService WSDL service -->
+
+  <service name="Notes" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://zaman.onenote"/>
+      <parameter name="wsdlServiceElement" value="NotesService"/>
+      <parameter name="schemaQualified" value="http://zaman.onenote"/>
+      <parameter name="wsdlServicePort" value="Notes"/>
+      <parameter name="className" value="onenote.zaman.NotesSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="Notes"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="createANote" qname="operNS:createANote" xmlns:operNS="http://zaman.onenote" returnQName="retNS:createANoteReturn" xmlns:retNS="http://zaman.onenote" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:pageTitle" xmlns:pns="http://zaman.onenote" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:txt" xmlns:pns="http://zaman.onenote" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:sectionName" xmlns:pns="http://zaman.onenote" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:user_id" xmlns:pns="http://zaman.onenote" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="searchNote" qname="operNS:searchNote" xmlns:operNS="http://zaman.onenote" returnQName="retNS:searchNoteReturn" xmlns:retNS="http://zaman.onenote" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:user_id" xmlns:pns="http://zaman.onenote" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:noteName" xmlns:pns="http://zaman.onenote" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="createANote searchNote"/>
+
+  </service>
+</deployment>
