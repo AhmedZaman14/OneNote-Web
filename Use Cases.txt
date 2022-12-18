@@ -1,0 +1,51 @@
+Description of Usecases.
+
+## 1. Create Note:
+		Once the user find something worthy to note it down, they will simply have to login to there NoteBooks and inside the notebook they might have serveral sections. After selecting a section now the user will have an option of "Create a Page" inside which they will write their notes. After creating a page and writing notes in it, now they will save this note and process will end as the note have been created and saved.
+			But if there are no Sections inside the User's NoteBook, then user will have to Create A section and the process will start over from Selecting a Section.
+
+
+
+
+## 2. Notes Management(Add/delete) :
+            
+         (A) **   Add Note Feature: ** 
+                          If the user wants to add notes, pages,section in
+                          their workingspace/ NoteBook/ Account.At first user
+                          will be able to either directly add page in the default
+                          notebook or create a new notebook and add pages there for
+                          this user need to specify the location i.e user account ,specify 
+                          location where to create new notebook ,for this process will check
+                          either entered info(user account) is valid if yes it will allow 
+                          the user to create a new notebook to that specified location and
+                          create new sections and add pages to that sections if the added
+                          credentials are invalid it will prompt error message and either ask
+                          to cancel or continue the process by entering the info again to restart the process. 
+           
+      (B)  ** Delete Note Feature: **
+                                     Once user decides to delete some notes or maybe outdated notes, 
+                                     now user will first search that particular file and the system will 
+                                     verify if the file that the user searched for exists or not? - if
+                                     file do exists or similar files with that keywords which user entered
+                                     exists then files will be displayed to the use, now user will select 
+                                     that file which is needed to be deleted and then simply delete icon will
+                                     need to be pressed to end the process of deleting a file.
+                                     But if the file user searched for does not exist the user will be prompted
+                                     with a meassage of "No Such Files Exist" and he will again have to write something
+                                     on search box so that the process starts again.
+                                   
+
+
+
+## 3. Search Notes:
+		If user wants to search a specific Note/file amongs several other files, or maybe they want to directly directed towards that Note/file without going through section and then pages. User will have to click on search icon then a textbox will be displayed inside which user will enter file name, now if there are matching files with the text that user entered they will be displayed. Now user can select a file among all the other matching results and he will be directed towards that note specifically .
+But if no matching results are found, user will be prompted with "No macthin result" and after which the process will start over .
+
+
+## 4. Share Notes:
+                   In order to share the file the user will have to go through following Process- After
+                   selecting the file user wants to share, enter share button and you now will have 2 options
+                   to either share as an pdf or as an txt file and then connection will be build . if the connection 
+                   is successful, user will have 2 sharing options either through email or other third party applications.
+                   once a option is selected the file will shared through that medium. And if the build connection failed, error
+                   prompt will be displayed and process will end. 
