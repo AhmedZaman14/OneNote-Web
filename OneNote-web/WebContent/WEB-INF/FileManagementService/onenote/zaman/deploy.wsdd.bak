@@ -1,0 +1,35 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from FileManagementService WSDL service -->
+
+  <service name="FileManagement" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://zaman.onenote"/>
+      <parameter name="wsdlServiceElement" value="FileManagementService"/>
+      <parameter name="schemaQualified" value="http://zaman.onenote"/>
+      <parameter name="wsdlServicePort" value="FileManagement"/>
+      <parameter name="className" value="onenote.zaman.FileManagementSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="FileManagement"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="addFile" qname="operNS:addFile" xmlns:operNS="http://zaman.onenote" returnQName="retNS:addFileReturn" xmlns:retNS="http://zaman.onenote" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:user_id" xmlns:pns="http://zaman.onenote" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:noteName" xmlns:pns="http://zaman.onenote" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:filepath" xmlns:pns="http://zaman.onenote" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="deleteNote" qname="operNS:deleteNote" xmlns:operNS="http://zaman.onenote" returnQName="retNS:deleteNoteReturn" xmlns:retNS="http://zaman.onenote" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:user_id" xmlns:pns="http://zaman.onenote" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:noteName" xmlns:pns="http://zaman.onenote" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="deleteNote addFile"/>
+
+  </service>
+</deployment>
