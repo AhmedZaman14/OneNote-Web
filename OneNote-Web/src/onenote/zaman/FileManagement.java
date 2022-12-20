@@ -1,6 +1,7 @@
 package onenote.zaman;
 
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
@@ -8,38 +9,6 @@ import java.sql.*;
 
 public class FileManagement {
 
-/*
-private String searchNote(int user_id, String noteName) {
-try{
-
-//this userId is important in parameter
-//because user will search his own Notes which he had created-
-//this userID will help when this service is called in actual web or application
-
-
-Class.forName("com.mysql.jdbc.Driver");
-Connection con =DriverManager.getConnection("jdbc:mysql://localhost:3306/onenote","root","");
-Statement stmt=con.createStatement();
-ResultSet rs=stmt.executeQuery("select PageTitle, Text, CreationDate from Page\r\n" +
-"JOIN section ON section.SectionID = page.SectionID\r\n" +
-"JOIN notebook ON notebook.NoteBookID = section.NoteBookID\r\n" +
-"JOIN user ON user.user_id = notebook.user_id\r\n" +
-"JOIN note ON note.page_id = page.page_id\r\n" +
-"where user.user_id = '"+user_id+"' AND page.PageTitle = '"+noteName+"'\r\n" +
-"");
-rs.next();
-String displayNote = "Note Title: " + rs.getString(1) + "\tNote: " + rs.getString(2) +"\tCreationData: "+ rs.getString(3);
-con.close();
-return displayNote;
-
-} catch(Exception e)
-{
-System.out.println(e);
-}
-return "No Such Note Found!";
-
-}
-*/
 
 
     private int getNotebookID(int user_id) {
@@ -187,123 +156,44 @@ return "No Such Note Found!";
 
     //to save the note to ur PC
 
-/*
-private int checkFileExistance(int user_id, String fileName) {
-try {
-Class.forName("com.mysql.jdbc.Driver");
-Connection con =DriverManager.getConnection("jdbc:mysql://localhost:3306/onenote","root","");
-Statement stmt=con.createStatement();
-ResultSet rs=stmt.executeQuery("select page_id from Page where  pageTitle= '"+fileName+"' ");
-if (rs.next()) {
-return rs.getInt(1);
-
-}
-else {
-
-return -1;
-}
-}
-catch(Exception e) {
-e.getMessage();
-}
-return -1;
-}
-
-public String addFile(int user_id, String fileName) {
-int pageID = checkFileExistance(user_id,fileName);
-
-if(pageID!=-1) {
-try{
-Class.forName("com.mysql.jdbc.Driver");
-Connection con =DriverManager.getConnection("jdbc:mysql://localhost:3306/onenote","root","");
-Statement stmt=con.createStatement();
-ResultSet rs=stmt.executeQuery("select PageTitle, Text from Page\r\n" +
-"JOIN section ON section.SectionID = page.SectionID\r\n" +
-"JOIN notebook ON notebook.NoteBookID = section.NoteBookID\r\n" +
-"JOIN user ON user.user_id = notebook.user_id\r\n" +
-"JOIN note ON note.page_id = page.page_id\r\n" +
-"where user.user_id = '"+user_id+"' AND page.PageTitle = '"+fileName+"'\r\n" +
-"");
-rs.next();
-String title = rs.getString(1) ;
-String txt= rs.getString(2) ;
-System.out.println(txt);
-createFIle(title,txt);
-con.close();
-return "File created";
 
 
-} catch(Exception e)
-{
-System.out.println(e);
-}
+    public String addFile(int user_id, String noteName, String filepath) {
+    	  try {
+    	    Class.forName("com.mysql.jdbc.Driver");
+    	    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3307/OneNote", "root", "");
+    	    Statement stmt = con.createStatement();
+    	    ResultSet rs = stmt.executeQuery("select PageTitle, Text from page\r\n" +
+    	      "JOIN section ON section.SectionID = page.SectionID\r\n" +
+    	      "JOIN notebook ON notebook.NoteBookID = section.NoteBookID\r\n" +
+    	      "JOIN user ON user.user_id = notebook.user_id\r\n" +
+    	      "JOIN note ON note.page_id = page.page_id\r\n" +
+    	      "where user.user_id = '" + user_id + "' AND page.PageTitle = '" + noteName + "'\r\n" +
+    	      "");
+    	    rs.next();
+    	    String noteTitle = rs.getString(1);
+    	    String txt = rs.getString(2);
+    	    saveFile(filepath, noteTitle, txt);
+    	    con.close();
+    	    return "File Created:";
+    	  } catch (FileNotFoundException e) {
+    	    System.out.println("The filepath is invalid or does not exist. Please enter a valid filepath.");
+    	  } catch (Exception e) {
+    	    System.out.println(e);
+    	  }
+    	  return "No Such Note Found!";
+    	}
 
-}
-else {
-return "File Does not exists";
-}
-return "File Does not exists";
-}
+    	private void saveFile(String filepath, String noteTitle, String txt) throws FileNotFoundException {
+    	  try {
+    	    FileWriter fileWriter = new FileWriter(filepath + noteTitle + ".txt");
+    	    BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
+    	    bufferedWriter.write(txt);
+    	    bufferedWriter.close();
+    	  } catch (IOException e) {
+    	    e.printStackTrace();
+    	  }
+    	}
 
-
-  private  void createFIle(String fileName, String txt){
-
- try {
-          FileWriter myWriter = new FileWriter(fileName+".txt");
-          myWriter.write(txt);
-          myWriter.close();
-          System.out.println("Successfully wrote to the file.");
-      } catch (Exception e) {
-          System.out.println("An error occurred.");
-          e.printStackTrace();
-      }
-}
-}
-*/
-
-    public String addFile(int user_id, String noteName) {
-
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3307/OneNote", "root", "");
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("select PageTitle, Text from page\r\n" +
-                    "JOIN section ON section.SectionID = page.SectionID\r\n" +
-                    "JOIN notebook ON notebook.NoteBookID = section.NoteBookID\r\n" +
-                    "JOIN user ON user.user_id = notebook.user_id\r\n" +
-                    "JOIN note ON note.page_id = page.page_id\r\n" +
-                    "where user.user_id = '" + user_id + "' AND page.PageTitle = '" + noteName + "'\r\n" +
-                    "");
-            rs.next();
-            String noteTitle = rs.getString(1);
-            String txt = rs.getString(2);
-            saveFile(noteTitle, txt);
-            con.close();
-            return "File Created:";
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return "No Such Note Found!";
-    }
-
-
-    private void saveFile(String noteTitle, String txt) {
-        String filePath = "C:\\Users\\zaman\\Downloads\\";
-
-
-        try {
-
-            FileWriter fileWriter = new FileWriter(filePath + noteTitle + ".txt");
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
-            bufferedWriter.write(txt);
-
-
-            bufferedWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

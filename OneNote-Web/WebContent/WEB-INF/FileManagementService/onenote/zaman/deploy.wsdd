@@ -10,11 +10,11 @@
       <parameter name="className" value="onenote.zaman.FileManagement"/>
       <parameter name="wsdlPortType" value="FileManagement"/>
       <parameter name="typeMappingVersion" value="1.2"/>
-      <operation xmlns:operNS="http://zaman.onenote" xmlns:retNS="http://zaman.onenote" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="addFile" qname="operNS:addFile" returnQName="retNS:addFileReturn" returnType="rtns:string" soapAction="">
+      <operation xmlns:operNS="http://zaman.onenote" xmlns:retNS="http://zaman.onenote" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="deleteNote" qname="operNS:deleteNote" returnQName="retNS:deleteNoteReturn" returnType="rtns:string" soapAction="">
         <parameter xmlns:pns="http://zaman.onenote" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user_id" type="tns:int"/>
         <parameter xmlns:pns="http://zaman.onenote" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:noteName" type="tns:string"/>
       </operation>
-      <operation xmlns:operNS="http://zaman.onenote" xmlns:retNS="http://zaman.onenote" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="deleteNote" qname="operNS:deleteNote" returnQName="retNS:deleteNoteReturn" returnType="rtns:string" soapAction="">
+      <operation xmlns:operNS="http://zaman.onenote" xmlns:retNS="http://zaman.onenote" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="addFile" qname="operNS:addFile" returnQName="retNS:addFileReturn" returnType="rtns:string" soapAction="">
         <parameter xmlns:pns="http://zaman.onenote" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user_id" type="tns:int"/>
         <parameter xmlns:pns="http://zaman.onenote" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:noteName" type="tns:string"/>
       </operation>
