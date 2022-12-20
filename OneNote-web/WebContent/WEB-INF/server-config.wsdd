@@ -7,8 +7,8 @@
   <ns1:parameter name="dotNetSoapEncFix" value="true"/>
   <ns1:parameter name="enableNamespacePrefixOptimization" value="false"/>
   <ns1:parameter name="sendXMLDeclaration" value="true"/>
-  <ns1:parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
   <ns1:parameter name="sendXsiTypes" value="true"/>
+  <ns1:parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
   <ns1:requestFlow>
    <ns1:handler type="java:org.apache.axis.handlers.JWSHandler">
     <ns1:parameter name="scope" value="session"/>
@@ -50,6 +50,26 @@
   <ns1:parameter name="schemaQualified" value="http://zaman.onenote"/>
   <ns1:parameter name="wsdlTargetNamespace" value="http://zaman.onenote"/>
   <ns1:parameter name="wsdlServiceElement" value="FileManagementService"/>
+ </ns1:service>
+ <ns1:service name="Notes" provider="java:RPC" style="wrapped" use="literal">
+  <ns1:operation name="createANote" qname="ns3:createANote" returnQName="ns3:createANoteReturn" returnType="xsd:string" soapAction="" xmlns:ns3="http://zaman.onenote" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns3:pageTitle" type="xsd:string"/>
+   <ns1:parameter qname="ns3:txt" type="xsd:string"/>
+   <ns1:parameter qname="ns3:sectionName" type="xsd:string"/>
+   <ns1:parameter qname="ns3:user_id" type="xsd:int"/>
+  </ns1:operation>
+  <ns1:operation name="searchNote" qname="ns4:searchNote" returnQName="ns4:searchNoteReturn" returnType="xsd:string" soapAction="" xmlns:ns4="http://zaman.onenote" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter qname="ns4:user_id" type="xsd:int"/>
+   <ns1:parameter qname="ns4:noteName" type="xsd:string"/>
+  </ns1:operation>
+  <ns1:parameter name="allowedMethods" value="createANote searchNote"/>
+  <ns1:parameter name="typeMappingVersion" value="1.2"/>
+  <ns1:parameter name="wsdlPortType" value="Notes"/>
+  <ns1:parameter name="className" value="onenote.zaman.Notes"/>
+  <ns1:parameter name="wsdlServicePort" value="Notes"/>
+  <ns1:parameter name="schemaQualified" value="http://zaman.onenote"/>
+  <ns1:parameter name="wsdlTargetNamespace" value="http://zaman.onenote"/>
+  <ns1:parameter name="wsdlServiceElement" value="NotesService"/>
  </ns1:service>
  <ns1:transport name="http">
   <ns1:requestFlow>
