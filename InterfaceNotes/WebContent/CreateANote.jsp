@@ -1,3 +1,13 @@
+<%
+String pt= request.getParameter("PageTitle");
+String tx = request.getParameter("text");
+String sn = request.getParameter("Sections");
+String userid = request.getParameter("Users");
+  if (pt == null || tx == null || sn==null|| userid==null) {
+    response.sendRedirect("WriteNotes.jsp");
+    return;
+  }
+%>
 <%@page import="onenote.zaman.*" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -25,6 +35,7 @@
           String txt = request.getParameter("text");
           String sectionName = request.getParameter("Sections");
           int user_id = Integer.parseInt(request.getParameter("Users"));
+          
           Notes obj = new NotesProxy().getNotes();
           String result = obj.createANote(pageTitle, txt, sectionName, user_id);
           obj.createANote(pageTitle, txt, sectionName, user_id);
