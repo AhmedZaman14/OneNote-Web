@@ -1,5 +1,4 @@
 package onenote.zaman;
-
 import java.sql.*;
 import java.util.Date;
 
@@ -161,7 +160,7 @@ public class Notes {
 	
 	
 	
-	private int noteID(String txt,int pageID) {
+	private int insertIntoNote(String txt,int pageID) {
 		  try {
 			  Date currentDate = new Date();
 			  Timestamp currentTimestamp = new Timestamp(currentDate.getTime());
@@ -186,15 +185,16 @@ public class Notes {
 	public String createANote(String pageTitle, String txt,String sectionName, int user_id) {
 		  
 		int noteID= -1;
-		//this method returns the last inserted id
-		if(checkPageExistance(pageTitle, user_id)) {
-			return "Plz Change PageTitle because Page with this name already exists:";
-		}
 		
-		int pageID = createPage(pageTitle,user_id,sectionName);
-		if(pageID!=-1 ) {
+		if(!pageTitle.equals("") && !txt.equals("")) {
+		if(checkPageExistance(pageTitle, user_id)) {
+			return "Plz Change PageTitle because Page with this name already exists";
+		}else {
+		
+		
 			try {
-				noteID = noteID(txt,pageID);
+				int pageID = createPage(pageTitle,user_id,sectionName);
+				noteID = insertIntoNote(txt,pageID);
 				insertIntoNoteCategory(txt,noteID);
 				insertDefaultLayout(noteID);
 				
@@ -203,9 +203,12 @@ public class Notes {
 				catch(Exception e) {
 					System.out.println(e);
 				}
-		}
+			return "Plz Provide All  Correctly";
 		
-		return "Plz provide correct information to create a Note";
+		}
+		}
+		return "Plz Provide All Information Correctly";
+		
 		
 	    
 	}
@@ -214,11 +217,7 @@ public class Notes {
 
 	public String searchNote(int user_id, String noteName) {
 		try{
-			/*
-			this userId is important in parameter
-			because user will search his own Notes which he had created-
-			latter user_id can be removed from the parameters. 
-			*/
+			
 			
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con =DriverManager.getConnection("jdbc:mysql://localhost:3307/OneNote","root","");
@@ -231,7 +230,7 @@ public class Notes {
 					"where user.user_id = '"+user_id+"' AND page.PageTitle = '"+noteName+"'\r\n" + 
 					"");
 			rs.next();
-			String displayNote = "Note Title: " + rs.getString(1) + "\tNote: " + rs.getString(2) +"\tCreationData: "+ rs.getString(3);
+			String displayNote = "Note Title: " + rs.getString(1) + "\nNote: " + rs.getString(2) +"\nCreationData: "+ rs.getString(3);
 			con.close();
 			return displayNote;
 			
