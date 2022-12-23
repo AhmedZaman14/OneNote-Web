@@ -160,39 +160,40 @@ public class FileManagement {
 
 
     public String addFile(int user_id, String noteName, String filepath) {
-    	  try {
-    	    Class.forName("com.mysql.jdbc.Driver");
-    	    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3307/OneNote", "root", "");
-    	    Statement stmt = con.createStatement();
-    	    ResultSet rs = stmt.executeQuery("select PageTitle, Text from page\r\n" +
-    	      "JOIN section ON section.SectionID = page.SectionID\r\n" +
-    	      "JOIN notebook ON notebook.NoteBookID = section.NoteBookID\r\n" +
-    	      "JOIN user ON user.user_id = notebook.user_id\r\n" +
-    	      "JOIN note ON note.page_id = page.page_id\r\n" +
-    	      "where user.user_id = '" + user_id + "' AND page.PageTitle = '" + noteName + "'\r\n" +
-    	      "");
-    	    rs.next();
-    	    String noteTitle = rs.getString(1);
-    	    String txt = rs.getString(2);
+  	  try {
+  	    Class.forName("com.mysql.jdbc.Driver");
+  	    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3307/OneNote", "root", "");
+  	    Statement stmt = con.createStatement();
+  	    ResultSet rs = stmt.executeQuery("select PageTitle, Text from page\r\n" +
+  	      "JOIN section ON section.SectionID = page.SectionID\r\n" +
+  	      "JOIN notebook ON notebook.NoteBookID = section.NoteBookID\r\n" +
+  	      "JOIN user ON user.user_id = notebook.user_id\r\n" +
+  	      "JOIN note ON note.page_id = page.page_id\r\n" +
+  	      "where user.user_id = '" + user_id + "' AND page.PageTitle = '" + noteName + "'\r\n" +
+  	      "");
+  	    rs.next();
+  	    String noteTitle = rs.getString(1);
+  	    String txt = rs.getString(2);
 
-    	    // Check if the filepath is valid
-    	    File file = new File(filepath);
-    	    if (!file.exists() || !file.isDirectory()) {
-    	      throw new IOException("The filepath is invalid or does not exist. Please enter a valid filepath.");
-    	    }
+  	    // Check if the filepath is valid
+  	    File file = new File(filepath);
+  	    if (!file.exists() || !file.isDirectory()) {
+  	      throw new IOException("The filepath is invalid or does not exist. Please enter a valid filepath.");
+  	    }
 
-    	    // Call the saveFile method inside the try-catch block
-    	    saveFile(filepath, noteTitle, txt);
-    	    con.close();
-    	    return "File created successfully at: " + filepath + noteTitle + ".txt";
-    	  } catch (IOException e) {
-    	    System.out.println(e.getMessage());
-    	    return "Error: " + e.getMessage();
-    	  } catch (Exception e) {
-    	    System.out.println(e);
-    	    return "Error: " + e.getMessage();
-    	  }
-    	}
+  	    // Call the saveFile method inside the try-catch block
+  	    saveFile(filepath, noteTitle, txt);
+  	    con.close();
+  	    return "File created successfully at: " + filepath + noteTitle + ".txt";
+  	  } catch (IOException e) {
+  	    System.out.println(e.getMessage());
+  	    return "Error: Plz confirm that the FilePath is correct ";
+  	  } catch (Exception e) {
+  	    System.out.println(e);
+  	    return "File Does not exists";
+  	  }
+  	}
+
 
     private void saveFile(String filepath, String noteTitle, String txt) throws IOException {
     	  try {
